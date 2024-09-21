@@ -1,0 +1,4 @@
+.card-group.card-group-scroll {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+}
