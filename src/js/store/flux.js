@@ -5,44 +5,42 @@ const getState = ({ getStore, getActions, setStore }) => {
 			planetBank:[],
 			vehicleBank:[],
 			favoriteList:[],
-			// demo: [
-			// 	{
-			// 		title: "FIRST",
-			// 		background: "white",
-			// 		initial: "white"
-			// 	},
-			// 	{
-			// 		title: "SECOND",
-			// 		background: "white",
-			// 		initial: "white"
-			// 	}
-			// ]
+			
 		},
 		actions: {
-			addFavorite: (character) => {
-				const store = getStore()
-				const favoriteCharacterInList = store.favoriteList.includes(character.result.properties.name)
-				if (!favoriteCharacterInList) {
-					setStore({favoriteList: [...store.favoriteList, character.result.properties.name]})
-				}
-			},
-			 removeFavorite: (index) => {
+			
+			 removeFavorite: (character) => {
+				const store = getStore(); //make local copy of the store obj for use in this function only
 				var newFavList = [];
-				favoriteCharacters.forEach(e => {
-					if(e !== favoriteCharacters[index])
+				store.favoriteList.forEach(e => {
+					if(e !== character)
 					{newFavList =([...newFavList, e]);
-						console.log(newFavList);
+						
 					}
 				});
 				 
-				setFavoriteCharacters (newFavList);
+				setStore({favoriteList: newFavList}); //must set the store variables byt setStore bc in react you dont want to directly change the state
 			},
-			// export to home later
-			  addFavorite: (item)=> {
-				let newFavorite = item.name;
-				setFavoriteCharacters([...favoriteCharacters, [newFavorite]]);
+			addFavorite: (character) => {
+				const store = getStore();
+				 const favoriteCharacterInList = store.favoriteList.includes(character);
+				 if (!favoriteCharacterInList) {
+				 	setStore({favoriteList: [...store.favoriteList, character]});
+					
+				}else {
+					var newFavList = [];
+					store.favoriteList.forEach(e => {
+					if(e !== character)
+					{newFavList =([...newFavList, e]);
+						
+					}
+					});
+				 
+				setStore({favoriteList: newFavList});
 				
-			  },
+				}
+				
+			},
 
 
 			getCharacterBank: () => {
@@ -56,9 +54,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				})
 		
 				.then(responseAsJson => {
-					setStore({characterBank: responseAsJson.results})
-					
-					console.log("flux "+store.characterBank);	
+					setStore({characterBank: responseAsJson.results})	
 								
 				})
 		
@@ -77,10 +73,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return response.json();
 				})
 		
-				.then(responseAsJson => {
-					
-					setStore({planetBank: responseAsJson.results})
-								
+				.then(responseAsJson => {					
+					setStore({planetBank: responseAsJson.results})								
 				})
 		
 				.catch(error => {
@@ -98,38 +92,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return response.json();
 				})
 		
-				.then(responseAsJson => {
-					
-					setStore({vehicleBank: responseAsJson.results})	
-								
+				.then(responseAsJson => {					
+					setStore({vehicleBank: responseAsJson.results})									
 				})
 		
 				.catch(error => {
 					console.log('Looks like there was a problem: \n', error);
 				});
 			  },
-			// Use getActions to call a function within a fuction
-			// exampleFunction: () => {
-			// 	getActions().changeColor(0, "green");
-			// },
-			// loadSomeData: () => {
-			// 	/**
-			// 		fetch().then().then(data => setStore({ "foo": data.bar }))
-			// 	*/
-			// },
-			// changeColor: (index, color) => {
-			// 	//get the store
-			// 	const store = getStore();
-
-			// 	//we have to loop the entire demo array to look for the respective index
-			// 	//and change its color
-			// 	const demo = store.demo.map((elm, i) => {
-			// 		if (i === index) elm.background = color;
-			// 		return elm;
-			// 	});
-
-				//reset the global store
-			//	setStore({ demo: demo });
+			
 			
 		}
 	};

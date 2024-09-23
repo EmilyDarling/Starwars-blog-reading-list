@@ -1,11 +1,12 @@
-import React, { useState , useEffect}from "react";
+import React, { useState , useEffect , useContext}from "react";
 import { Link } from "react-router-dom";
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+import { Context } from '../store/appContext.js';
 
 
 export const Navbar = () => {
 	
- var favoriteCharacters = ["cat","dog"];
+	const { actions,store } = useContext(Context);
 	return (
 		<nav className="navbar navbar-light bg-light mb-3">
 			<Link to="/">
@@ -13,14 +14,14 @@ export const Navbar = () => {
 				
 			</Link>
 			<div className="ml-auto mx-5 ">
-			<div className="dropdown">
+			<div className="dropstart">
 			<button className="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
 				Favorites
 			</button>
-			<ul className="dropdown-menu">
-			 {favoriteCharacters.map((entry,index) =>
-					{return <li key={index} className="bg-light border border-secondary"> {entry}
-					<button  className="ms-3 btn text-center badge rounded-pill bg-secondary xBtn">X</button>
+			<ul className="dropdown-menu mx-5">
+			 {store.favoriteList.map((entry,index) =>
+					{return <li key={index} className="bg-light border border-secondary dropdown-item"> {entry}
+					<button onClick={() => actions.removeFavorite(store.favoriteList[index])} className="ms-3 btn text-center badge rounded-pill bg-secondary xBtn" >X</button>
 					</li>}
 					)
 				} 
