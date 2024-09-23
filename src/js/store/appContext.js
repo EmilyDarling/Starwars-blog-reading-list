@@ -22,9 +22,7 @@ const injectContext = PassedComponent => {
 		);
 
 		useEffect(() => {
-			state.actions.getCharacterBank();
-			state.actions.getPlanetBank();
-			state.actions.getVehicleBank();
+			
 			
 			/**
 			 * EDIT THIS!

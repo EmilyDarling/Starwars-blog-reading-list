@@ -4,27 +4,8 @@ import { Link } from "react-router-dom";
 
 
 export const Navbar = () => {
-	const [favoriteCharacters, setFavoriteCharacters] = useState([]);
-
-
-	function removeFavorite(index) {
-		var newFavList = [];
-		favoriteCharacters.forEach(e => {
-			if(e !== favoriteCharacters[index])
-			{newFavList =([...newFavList, e]);
-				console.log(newFavList);
-			}
-		});
-		 
-		setFavoriteCharacters (newFavList);
-	}
-	// export to home later
-	 function addFavorite(item) {
-		let newFavorite = item.name;
-		setFavoriteCharacters([...favoriteCharacters, [newFavorite]]);
-		
-	  }
-
+	
+ var favoriteCharacters = ["cat","dog"];
 	return (
 		<nav className="navbar navbar-light bg-light mb-3">
 			<Link to="/">
@@ -39,7 +20,7 @@ export const Navbar = () => {
 			<ul className="dropdown-menu">
 			 {favoriteCharacters.map((entry,index) =>
 					{return <li key={index} className="bg-light border border-secondary"> {entry}
-					<button onClick= {()=> removeFavorite(index)} className="ms-3 btn text-center badge rounded-pill bg-secondary xBtn">X</button>
+					<button  className="ms-3 btn text-center badge rounded-pill bg-secondary xBtn">X</button>
 					</li>}
 					)
 				} 

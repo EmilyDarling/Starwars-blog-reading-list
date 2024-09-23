@@ -4,6 +4,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			characterBank: [],
 			planetBank:[],
 			vehicleBank:[],
+			favoriteList:[],
 			// demo: [
 			// 	{
 			// 		title: "FIRST",
@@ -18,6 +19,30 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// ]
 		},
 		actions: {
+			addFavorite: (character) => {
+				const store = getStore()
+				const favoriteCharacterInList = store.favoriteList.includes(character.result.properties.name)
+				if (!favoriteCharacterInList) {
+					setStore({favoriteList: [...store.favoriteList, character.result.properties.name]})
+				}
+			},
+			 removeFavorite: (index) => {
+				var newFavList = [];
+				favoriteCharacters.forEach(e => {
+					if(e !== favoriteCharacters[index])
+					{newFavList =([...newFavList, e]);
+						console.log(newFavList);
+					}
+				});
+				 
+				setFavoriteCharacters (newFavList);
+			},
+			// export to home later
+			  addFavorite: (item)=> {
+				let newFavorite = item.name;
+				setFavoriteCharacters([...favoriteCharacters, [newFavorite]]);
+				
+			  },
 
 
 			getCharacterBank: () => {
@@ -31,9 +56,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 				})
 		
 				.then(responseAsJson => {
-					setStore({...store, characterBank: [responseAsJson.results],})
+					setStore({characterBank: responseAsJson.results})
 					
-					console.log(store.characterBank);	
+					console.log("flux "+store.characterBank);	
 								
 				})
 		
@@ -43,6 +68,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			  },
 		
 			  getPlanetBank: () => {
+				const store = getStore();
 				fetch('https://swapi.dev/api/planets')
 				.then(response => {
 					if (!response.ok) {
@@ -53,7 +79,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 		
 				.then(responseAsJson => {
 					
-					store.planetBank(responseAsJson.results);	
+					setStore({planetBank: responseAsJson.results})
 								
 				})
 		
@@ -74,7 +100,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 		
 				.then(responseAsJson => {
 					
-					store.vehicleBank(responseAsJson.results);	
+					setStore({vehicleBank: responseAsJson.results})	
 								
 				})
 		

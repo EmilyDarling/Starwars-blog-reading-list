@@ -9,7 +9,9 @@ import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
-import { Details } from "./views/detailsPage";
+import { CharacterDetailsPage } from "./views/characterDetailsPage";
+import { PlanetDetailsPage } from "./views/planetDetailsPage";
+import { VehicleDetailsPage } from "./views/vehicleDetailsPage";
 
 //create your first component
 const Layout = () => {
@@ -24,9 +26,9 @@ const Layout = () => {
 					<Navbar />
 					 <Routes> {/*only shows one of these routes at a time so this site stays a onepage application */}
 						<Route path="/" element={<Home />} />
-						<Route path="/detailsPage/characters/:nameId" element={<Details category = "characters"/>} />
-						<Route path="/detailsPage/planets/:nameId" element={<Details category = "planets"/>} />
-						<Route path="/detailsPage/vehicles/:nameId" element={<Details category = "vehicles"/>} />
+						<Route path="/characterDetailsPage/:nameId" element={<CharacterDetailsPage />} />
+						<Route path="/planetDetailsPage/:nameId" element={<PlanetDetailsPage />} />
+						<Route path="/vehicleDetailsPage/:nameId" element={<VehicleDetailsPage />} />
 						<Route path="/demo" element={<Demo />} />
 						<Route path="/single/:theid" element={<Single />} />
 						<Route path="*" element={<h1>Not found!</h1>} />
