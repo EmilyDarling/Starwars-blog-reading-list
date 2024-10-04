@@ -2,3 +2,6 @@
     overflow-x: auto;
     flex-wrap: nowrap;
 }
+.card-img-top{
+   object-fit: contain;
+}

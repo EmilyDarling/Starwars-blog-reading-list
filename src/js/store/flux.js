@@ -5,6 +5,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			planetBank:[],
 			vehicleBank:[],
 			favoriteList:[],
+			favoriteListCategory:[],
 			
 		},
 		actions: {
@@ -21,11 +22,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 				 
 				setStore({favoriteList: newFavList}); //must set the store variables byt setStore bc in react you dont want to directly change the state
 			},
-			addFavorite: (character) => {
+			addFavorite: (cat, item) => {
 				const store = getStore();
-				 const favoriteCharacterInList = store.favoriteList.includes(character);
-				 if (!favoriteCharacterInList) {
-				 	setStore({favoriteList: [...store.favoriteList, character]});
+				 const favoriteItemInList = store.favoriteList.includes(item);
+				 if (!favoriteItemInList) {
+				 	setStore({favoriteList: [...store.favoriteList, item]});
+					setStore({favoriteListCategory: [...store.favoriteListCategory, cat]});
 					
 				}else {
 					var newFavList = [];
